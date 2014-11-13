@@ -3,5 +3,6 @@ meteor-spacer
 
 Hackerspaces,
 on a map,
-with SpaceAPI
+with SpaceAPI  
+
 https://spacer.meteor.com
