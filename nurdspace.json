@@ -1,101 +1,101 @@
 {
-	"spacefed":
-	{	
-		"spacesaml":false,
-		"spacephone":false,
-		"spacenet":true
-	},
-	"api":"0.13",
-	"logo":"http:\/\/nurdspace.nl\/spaceapi\/logo.png",
-	"sensors":
-	{
-		"door_locked":
-		[
-			{
-				"name":"front_door",
-				"description":"",
-				"value":true,
-				"location":"front_door"
-			},{
-				"name":"back_door",
-				"description":"",
-				"value":true,
-				"location":"back_door"
-			}
-		],
-		"account_balance":[],
-		"beverage_supply":[],
-		"temperature":
-		[
-			{
-				"unit":"\u00b0C",
-				"description":"DS18B20+PAR",
-				"name":"284d6d7703000016",
-				"value":14.258,
-				"location":"Fridge"
-			},{
-				"value":16.3,
-				"location":"buZz's i2",
-				"description":"i2 Hotend",
-				"unit":"\u00b0C",
-				"name":"buzze"
-			},{
-				"value":16.4,
-				"location":"buZz's i2",
-				"description":"i2 Bed",
-				"unit":"\u00b0C",
-				"name":"buzzb"
-			},{
-				"value":19.1,
-				"location":"Petraea's i3",
-				"description":"i3 Bed",
-				"unit":"\u00b0C",
-				"name":"cjfd3b"
-			},{
-				"value":19.5,
-				"location":"Petraea's i3",
-				"description":"i3 Hotend",
-				"unit":"\u00b0C",
-				"name":"cjfd3e"
-			},{
-				"name":"pokonb",
-				"unit":"\u00b0C",
-				"location":"Pokon's i2",
-				"value":0,
-				"description":"i2 Bed"
-			},{
-				"name":"pokone",
-				"unit":"\u00b0C",
-				"location":"Pokon's i2",
-				"value":0,
-				"description":"i2 Hotend"
-			}
-		],
-		"people_now_present":[],
-		"network_connections":[],
-		"humidity":[],
-		"power_consumption":[],
-		"total_member_count":[],
-		"barometer":[],
-		"wind":[]
-	},
-	"space":"NURDSpace",
-	"url":"http:\/\/nurdspace.nl\/",
-	"cache":{"schedule":"m.02"},
-	"issue_report_channels":["ml"],
-	"state":
-	{
-		"lastchange":1414982523,
-		"message":"Space is CLOSED",
-		"open":false,
-		"trigger_person":"unknown",
-		"icon":
-		{
-			"open":"http:\/\/nurdspace.nl\/spaceapi\/icon-open.png",
-			"closed":"http:\/\/nurdspace.nl\/spaceapi\/icon-closed.png"
-		}
-	},
-	"contact":{"ml":"nurds@nurdspace.nl","twitter":"@NURDspace","irc":"irc:\/\/irc.oftc.net\/#nurds"},
-	"location":{"lat":51.973276,"lon":5.672886,"address":"Churchillweg 68, 6706 AD Wageningen, The Netherlands"},
-	"cam":["http:\/\/space.nurdspace.nl\/video\/channel_0.gif"]}
+  "spacefed":
+  { 
+    "spacesaml":false,
+    "spacephone":false,
+    "spacenet":true
+  },
+  "api":"0.13",
+  "logo":"http:\/\/nurdspace.nl\/spaceapi\/logo.png",
+  "sensors":
+  {
+    "door_locked":
+    [
+      {
+        "name":"front_door",
+        "description":"",
+        "value":true,
+        "location":"front_door"
+      },{
+        "name":"back_door",
+        "description":"",
+        "value":true,
+        "location":"back_door"
+      }
+    ],
+    "account_balance":[],
+    "beverage_supply":[],
+    "temperature":
+    [
+      {
+        "unit":"\u00b0C",
+        "description":"DS18B20+PAR",
+        "name":"284d6d7703000016",
+        "value":14.258,
+        "location":"Fridge"
+      },{
+        "value":16.3,
+        "location":"buZz's i2",
+        "description":"i2 Hotend",
+        "unit":"\u00b0C",
+        "name":"buzze"
+      },{
+        "value":16.4,
+        "location":"buZz's i2",
+        "description":"i2 Bed",
+        "unit":"\u00b0C",
+        "name":"buzzb"
+      },{
+        "value":19.1,
+        "location":"Petraea's i3",
+        "description":"i3 Bed",
+        "unit":"\u00b0C",
+        "name":"cjfd3b"
+      },{
+        "value":19.5,
+        "location":"Petraea's i3",
+        "description":"i3 Hotend",
+        "unit":"\u00b0C",
+        "name":"cjfd3e"
+      },{
+        "name":"pokonb",
+        "unit":"\u00b0C",
+        "location":"Pokon's i2",
+        "value":0,
+        "description":"i2 Bed"
+      },{
+        "name":"pokone",
+        "unit":"\u00b0C",
+        "location":"Pokon's i2",
+        "value":0,
+        "description":"i2 Hotend"
+      }
+    ],
+    "people_now_present":[],
+    "network_connections":[],
+    "humidity":[],
+    "power_consumption":[],
+    "total_member_count":[],
+    "barometer":[],
+    "wind":[]
+  },
+  "space":"NURDSpace",
+  "url":"http:\/\/nurdspace.nl\/",
+  "cache":{"schedule":"m.02"},
+  "issue_report_channels":["ml"],
+  "state":
+  {
+    "lastchange":1414982523,
+    "message":"Space is CLOSED",
+    "open":false,
+    "trigger_person":"unknown",
+    "icon":
+    {
+      "open":"http:\/\/nurdspace.nl\/spaceapi\/icon-open.png",
+      "closed":"http:\/\/nurdspace.nl\/spaceapi\/icon-closed.png"
+    }
+  },
+  "contact":{"ml":"nurds@nurdspace.nl","twitter":"@NURDspace","irc":"irc:\/\/irc.oftc.net\/#nurds"},
+  "location":{"lat":51.973276,"lon":5.672886,"address":"Churchillweg 68, 6706 AD Wageningen, The Netherlands"},
+  "cam":["http:\/\/space.nurdspace.nl\/video\/channel_0.gif"]}
 

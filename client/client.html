@@ -1,16 +1,16 @@
 <head>
-	<title>Spacer</title>
+  <title>Spacer</title>
 </head>
 
 <body></body>
 
 <template name="defaultLayout">
-	{{> yield}}
+  {{> yield}}
 </template>
 
 <template name="home">
-	{{> space_map}}
-	{{> space_list}}
+  {{> space_map}}
+  {{> space_list}}
 </template>
 
 
@@ -22,51 +22,51 @@
 
 
 <template name="space_cams">
-	<div class="container space-list">
-		<div class="row-fluid">
-			<h3>Live Cams</h3>
-		</div>
-		<div class="row-fluid">
-			{{#each spaces}}
-				{{#with data}}
-					{{#if cam}}
-						{{#each cam}}
-							<div class="col-sm-4 space-box" style="height:480px;">
-								<div class="row-fluid space-img-row">{{this}}
-									<div class="space-img" style="background-image:url({{this}});height:480px;">&nbsp;</div>
-								</div>
-							</div>
-						{{/each}}
-					{{/if}}
-				{{/with}}
-			{{/each}}
-		</div>
-	</div>
+  <div class="container space-list">
+    <div class="row-fluid">
+      <h3>Live Cams</h3>
+    </div>
+    <div class="row-fluid">
+      {{#each spaces}}
+        {{#with data}}
+          {{#if cam}}
+            {{#each cam}}
+              <div class="col-sm-4 space-box" style="height:480px;">
+                <div class="row-fluid space-img-row">{{this}}
+                  <div class="space-img" style="background-image:url({{this}});height:480px;">&nbsp;</div>
+                </div>
+              </div>
+            {{/each}}
+          {{/if}}
+        {{/with}}
+      {{/each}}
+    </div>
+  </div>
 </template>
 
 
 <template name="space_list">
-	<div class="container space-list">
-		<div class="row-fluid">
-			<h3>Last Update of {{infoCheckedCount}} {{infoLastUpdate}}.</h3>
-		</div>
-		<div class="row-fluid">
-			{{#each spaces}}
-				<div class="col-sm-2 space-box">
-					<div class="row-fluid">
-			 			<a href="{{data.url}}" target="_blank">{{name}}</a>
-					</div>
-					<div class="row-fluid space-img-row">
-						{{#if data.logo}}
-							<div class="space-img" style="background-image:url({{data.logo}})">&nbsp;</div>
-						{{/if}}
-					</div>
-					<div class="row-fluid" style="display:none;">
-						<pre>{{tree}}</pre>
-					</div>
-				</div>
-			{{/each}}
-		</div>
-	</div>
+  <div class="container space-list">
+    <div class="row-fluid">
+      <h3>Last Update of {{infoCheckedCount}} {{infoLastUpdate}}.</h3>
+    </div>
+    <div class="row-fluid">
+      {{#each spaces}}
+        <div class="col-sm-2 space-box">
+          <div class="row-fluid">
+            <a href="{{data.url}}" target="_blank">{{name}}</a>
+          </div>
+          <div class="row-fluid space-img-row">
+            {{#if data.logo}}
+              <div class="space-img" style="background-image:url({{data.logo}})">&nbsp;</div>
+            {{/if}}
+          </div>
+          <div class="row-fluid" style="display:none;">
+            <pre>{{tree}}</pre>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
 </template>
 

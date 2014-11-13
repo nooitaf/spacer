@@ -1,49 +1,49 @@
 html,body {
-	background:#bbb;
-	padding-bottom:80px;
+  background:#bbb;
+  padding-bottom:80px;
 }
 
 h2 {
-	text-align: center;
-	font-style: italic;
-	font-family: Times;
-	font-weight: bold;
-	font-size: 36px;
-	color:#eee;
+  text-align: center;
+  font-style: italic;
+  font-family: Times;
+  font-weight: bold;
+  font-size: 36px;
+  color:#eee;
 }
 
 
 .nav-side {
-	height:100%;
-	width:260px;
-	background:red;
+  height:100%;
+  width:260px;
+  background:red;
 }
 
 
 
 
 .space-list {
-	padding-top:10px;
+  padding-top:10px;
 }
 
 .space-box {
-	border:3px solid #ddd;
-	padding:10px;
-	background:white;
-	height:200px;
+  border:3px solid #ddd;
+  padding:10px;
+  background:white;
+  height:200px;
 }
 .space-img-row {
 }
 .space-img {
-	background-position: top left;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	height:140px;
+  background-position: top left;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height:140px;
 }
 .map {
-	border:3px solid #ddd;
-	margin-top:20px;
-	height:500px;
-	background:white;
+  border:3px solid #ddd;
+  margin-top:20px;
+  height:500px;
+  background:white;
 }

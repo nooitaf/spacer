@@ -13,9 +13,9 @@ Router.configure({
 
 Router.route('/', function () {
   this.render('home', {
-  	waitOn:function(){
-  		return Meteor.subscribe('spaces') && Meteor.subscribe('info');
-  	}
+    waitOn:function(){
+      return Meteor.subscribe('spaces') && Meteor.subscribe('info');
+    }
   });
 });
 
@@ -23,5 +23,5 @@ Router.route('/', function () {
 
 // Commons
 log = function(x){
-	console.log(x);
+  console.log(x);
 }

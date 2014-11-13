@@ -5,26 +5,26 @@ Meteor.subscribe('info')
 
 
 UI.registerHelper('spaces',function(){
-	return Spaces.find({},{sort:{name:1}});
+  return Spaces.find({},{sort:{name:1}});
 })
 
 Template.space_list.helpers({
-	infoLastUpdate:function(){
-		return Info.findOne() ? moment(Info.findOne().lastUpdate).fromNow() : 'never';
-	},
-	infoCheckedCount:function(){
-		var count = Info.findOne() ? Info.findOne().checkedCount : 0;
-		if (count === 1) 
-			return '1 space';
-		else 
-			return count + ' spaces';
-	},
-	currentImage: function(){
-		return this.data.logo || '';
-	},
-	tree: function(){
-		return JSON.stringify(this.data, null, 2);
-	}
+  infoLastUpdate:function(){
+    return Info.findOne() ? moment(Info.findOne().lastUpdate).fromNow() : 'never';
+  },
+  infoCheckedCount:function(){
+    var count = Info.findOne() ? Info.findOne().checkedCount : 0;
+    if (count === 1) 
+      return '1 space';
+    else 
+      return count + ' spaces';
+  },
+  currentImage: function(){
+    return this.data.logo || '';
+  },
+  tree: function(){
+    return JSON.stringify(this.data, null, 2);
+  }
 })
 
 
@@ -37,115 +37,115 @@ Template.space_map.rendered = function() {
   }).setView([20, 0], 2);
 
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	  attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-	  maxZoom: 18
-	}).addTo(map);
+    attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18
+  }).addTo(map);
 
-	var query = Spaces.find({'data.location.lat':{$exists:true},'data.location.lon':{$exists:true}});
+  var query = Spaces.find({'data.location.lat':{$exists:true},'data.location.lon':{$exists:true}});
   query.observe({
     added: function(space) {
-			addMarker(map,space);
+      addMarker(map,space);
     },
     changed: function(newSpace, oldSpace){
-    	layers = map._layers;
-    	var key, val;
-    	for (key in layers) {
-    		val = layers[key];
-    		if (val._latlng) {
-    			if (val._latlng.lat === oldSpace.data.location.lat && val._latlng.lng === oldSpace.data.location.lon) {
-    				updateMarker(val,newSpace);
-    			}
-    		}
-    	}
+      layers = map._layers;
+      var key, val;
+      for (key in layers) {
+        val = layers[key];
+        if (val._latlng) {
+          if (val._latlng.lat === oldSpace.data.location.lat && val._latlng.lng === oldSpace.data.location.lon) {
+            updateMarker(val,newSpace);
+          }
+        }
+      }
     }
   });
 };
 
 function addMarker(map,space) {
-	if (!space.data.location.lat || !space.data.location.lon) return false;
-	var latlng = [space.data.location.lat,space.data.location.lon];
-	var address = niceAddress(space.data.location.address);
-	var marker = L.marker(latlng);	
-	marker.bindPopup(
-		"<img src='" + space.data.logo + "' width='80px'></br>" +
-		"</br>" + 
-		"<b><a href='" + space.data.url + "' taget='_blank'>" + space.name + "</a></b></br>" +
-		"<i>" + address + "</i></br>" + 
-		(space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>")
-	);
+  if (!space.data.location.lat || !space.data.location.lon) return false;
+  var latlng = [space.data.location.lat,space.data.location.lon];
+  var address = niceAddress(space.data.location.address);
+  var marker = L.marker(latlng);  
+  marker.bindPopup(
+    "<img src='" + space.data.logo + "' width='80px'></br>" +
+    "</br>" + 
+    "<b><a href='" + space.data.url + "' taget='_blank'>" + space.name + "</a></b></br>" +
+    "<i>" + address + "</i></br>" + 
+    (space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>")
+  );
 
-	updateIcon(marker,space);
+  updateIcon(marker,space);
 
-	//console.log(marker);
-	marker.addTo(map);
+  //console.log(marker);
+  marker.addTo(map);
 }
 
 function updateIcon(marker,space){
-	if (space.data.state.open){
-		marker.setIcon(
-			L.icon({
-		    iconUrl: '/img/marker-icon-open.png',
-		    shadowUrl: '/img/marker-shadow.png',
-		    iconSize:     [25, 41], 
-		    shadowSize:   [41, 41], 
-		    iconAnchor:   [13, 40], 
-		    shadowAnchor: [13, 40], 
-		    popupAnchor:  [0, -47] 
-			})
-		)
-	} else {
-		marker.setIcon(
-			L.icon({
-		    iconUrl: '/img/marker-icon-closed.png',
-		    shadowUrl: '/img/marker-shadow.png',
-		    iconSize:     [25, 41], 
-		    shadowSize:   [41, 41], 
-		    iconAnchor:   [13, 40], 
-		    shadowAnchor: [13, 40], 
-		    popupAnchor:  [0, -47] 
-			})
-		)
-	}
+  if (space.data.state.open){
+    marker.setIcon(
+      L.icon({
+        iconUrl: '/img/marker-icon-open.png',
+        shadowUrl: '/img/marker-shadow.png',
+        iconSize:     [25, 41], 
+        shadowSize:   [41, 41], 
+        iconAnchor:   [13, 40], 
+        shadowAnchor: [13, 40], 
+        popupAnchor:  [0, -47] 
+      })
+    )
+  } else {
+    marker.setIcon(
+      L.icon({
+        iconUrl: '/img/marker-icon-closed.png',
+        shadowUrl: '/img/marker-shadow.png',
+        iconSize:     [25, 41], 
+        shadowSize:   [41, 41], 
+        iconAnchor:   [13, 40], 
+        shadowAnchor: [13, 40], 
+        popupAnchor:  [0, -47] 
+      })
+    )
+  }
 }
 
 function updateMarker(marker,space) {
-	// update position
-	var latlng = [space.data.location.lat,space.data.location.lon];
-	marker.setLatLng(latlng);
+  // update position
+  var latlng = [space.data.location.lat,space.data.location.lon];
+  marker.setLatLng(latlng);
 
-	// update content
-	var address = niceAddress(space.data.location.address);
-	var content = 
-		"<img src='" + space.data.logo + "' width='80px'></br>" +
-		"</br>" + 
-		"<b><a href='" + space.data.url + "' taget='_blank'>" + space.name + "</a></b></br>" +
-		"<i>" + address + "</i></br>" + 
-		parseInt(Math.random()*1000) + "</br>" + 
-		(space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>");
-	
-	updateIcon(marker,space);	
+  // update content
+  var address = niceAddress(space.data.location.address);
+  var content = 
+    "<img src='" + space.data.logo + "' width='80px'></br>" +
+    "</br>" + 
+    "<b><a href='" + space.data.url + "' taget='_blank'>" + space.name + "</a></b></br>" +
+    "<i>" + address + "</i></br>" + 
+    parseInt(Math.random()*1000) + "</br>" + 
+    (space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>");
+  
+  updateIcon(marker,space); 
 
-	// check if popup open
-	if (marker.setPopupContent) {
-		// popup closed
-		marker.setPopupContent(content);
-	} else {
-		// popup open
-		marker.setContent(content);
-	}
+  // check if popup open
+  if (marker.setPopupContent) {
+    // popup closed
+    marker.setPopupContent(content);
+  } else {
+    // popup open
+    marker.setContent(content);
+  }
 }
 
 function niceAddress(str){
-	var output = '';
-	if (str){
-		if (str.split(',')) {
-			output = str.split(',').join('</br>')
-		} else {
-			output = str;
-		}
-		return output;
-	} else {
-		return output;
-	}
+  var output = '';
+  if (str){
+    if (str.split(',')) {
+      output = str.split(',').join('</br>')
+    } else {
+      output = str;
+    }
+    return output;
+  } else {
+    return output;
+  }
 }
 
