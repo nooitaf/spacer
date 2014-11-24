@@ -1,4 +1,4 @@
-meteor-spacer
+spacer
 =============
 
 Hackerspaces,
