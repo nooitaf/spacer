@@ -3,9 +3,7 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 http
-nooitaf:colors
 mrt:moment
 mizzao:bootstrap-3
 mrt:leaflet
@@ -14,3 +12,19 @@ cfs:standard-packages
 cfs:filesystem
 force-ssl
 
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+standard-minifier-css
+standard-minifier-js
+nooitaf:colors
