@@ -176,9 +176,19 @@ function quickPatches() {
 	log('Patched: '.white + 'BinarySpace [lat-lon bug]'.yellow);
 
 	// Laboratório Hacker
-	var space = Spaces.findOne({ name: "Laboratório Hacker" });
+	// var space = Spaces.findOne({ name: "Laboratório Hacker" });
+	// Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
+	// log('Patched: '.white + 'Laboratório Hacker [lat-lon bug]'.yellow);
+
+	// Codersfield
+	var space = Spaces.findOne({ name: "Codersfield" });
 	Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-	log('Patched: '.white + 'Laboratório Hacker [lat-lon bug]'.yellow);
+	log('Patched: '.white + 'Codersfield [lat-lon bug]'.yellow);
+	
+	// Kamloops MakerSpace
+	var space = Spaces.findOne({ name: "Kamloops MakerSpace" });
+	Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
+	log('Patched: '.white + 'Kamloops MakerSpace [lat-lon bug]'.yellow);
 
 }
 

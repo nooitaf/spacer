@@ -9,8 +9,6 @@ mizzao:bootstrap-3
 mrt:leaflet
 iron:router
 cfs:standard-packages
-cfs:filesystem
-force-ssl
 
 meteor-base
 mobile-experience
