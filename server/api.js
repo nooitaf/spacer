@@ -6,10 +6,10 @@ Router.route('/ping', function () {
 
 Router.route('/space/:query', function () {
   var res = this.response;
-	var query = String(this.params.query)
-
+	var query = String(this.params.query).trim()
+	console.log(query)
 	var space = Spaces.findOne({'name': {$regex: query, $options: 'i'}})
-
+	console.log(space)
 	if(space) {
 		res.end(JSON.stringify({status: 'success', space: space},null,2))
 	} else {

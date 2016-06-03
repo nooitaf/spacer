@@ -167,13 +167,17 @@ function quickPatches() {
 	log('Patching:'.blue)
 		// Tangleball (New Zealand) - lat-lon wrong way
 	var space = Spaces.findOne({ name: "Tangleball" });
-	Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-	log('Patched: '.white + 'Tangleball [lat-lon bug]'.yellow);
+	if (space && space.data && space.data.location) {
+		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
+		log('Patched: '.white + 'Tangleball [lat-lon bug]'.yellow);
+	}
 
 	// BinarySpace
 	var space = Spaces.findOne({ name: "BinarySpace" });
-	Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-	log('Patched: '.white + 'BinarySpace [lat-lon bug]'.yellow);
+	if (space && space.data && space.data.location) {
+		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
+		log('Patched: '.white + 'BinarySpace [lat-lon bug]'.yellow);
+	}
 
 	// Laboratório Hacker
 	// var space = Spaces.findOne({ name: "Laboratório Hacker" });
@@ -182,14 +186,17 @@ function quickPatches() {
 
 	// Codersfield
 	var space = Spaces.findOne({ name: "Codersfield" });
-	Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-	log('Patched: '.white + 'Codersfield [lat-lon bug]'.yellow);
+	if (space && space.data && space.data.location) {
+		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
+		log('Patched: '.white + 'Codersfield [lat-lon bug]'.yellow);
+	}
 	
 	// Kamloops MakerSpace
 	var space = Spaces.findOne({ name: "Kamloops MakerSpace" });
-	Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-	log('Patched: '.white + 'Kamloops MakerSpace [lat-lon bug]'.yellow);
-
+	if (space && space.data && space.data.location) {
+		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
+		log('Patched: '.white + 'Kamloops MakerSpace [lat-lon bug]'.yellow);
+	}
 }
 
 
