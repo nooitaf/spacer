@@ -5,14 +5,14 @@ Router.route('/ping', function () {
 	console.log(this.request.url)
 	console.log(this.request.originalUrl)
 	console.log(this.request.body)
-	res.end({status: 'success', jo: 'pong'})
+	res.end(JSON.stringify({status: 'success', jo: 'pong'},null,2))
 }, {where:'server'});
 
 Router.route('/space/:query', function () {
 	var query = String(this.urlParams.query)
 	var space = Spaces.findOne({'name': {$regex: query, $options: 'i'}})
-	if(space) this.response.end({status: 'success', space: space})
-	this.response.end({statusCode: 404, body: {status: 'fail', message: 'Space not found'}})
+	if(space) this.response.end(JSON.stringify({status: 'success', space: space},null,2))
+	this.response.end(JSON.stringify({statusCode: 404, body: {status: 'fail', message: 'Space not found'}},null,2))
 }, {where:'server'});
 
 
