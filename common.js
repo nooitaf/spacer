@@ -2,7 +2,7 @@
 Spaces = new Mongo.Collection('spaces');
 Info = new Mongo.Collection('info');
 
-
+// -----
 
 // Routes
 Router.configure({
@@ -23,5 +23,3 @@ Router.route('/', function () {
 log = function(x){
   console.log(x);
 }
- 
- 
