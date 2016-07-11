@@ -1,5 +1,7 @@
 
 
+
+
 // Collections
 Spaces = new Mongo.Collection('spaces');
 Info = new Mongo.Collection('info');
