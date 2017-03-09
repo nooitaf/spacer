@@ -5,4 +5,4 @@ Hackerspaces,
 on a map,
 with SpaceAPI  
 
-https://spacer.meteor.com
+https://spacer.nooitaf.nl
