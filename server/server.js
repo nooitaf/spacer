@@ -8,7 +8,7 @@ Meteor.startup(function() {
 
 	// Check Spaces Interval
 	Meteor.setInterval(function() {
-		// -- check all 
+		// -- check all
 		Meteor.call('checkSpaces')
 			// -- check just one
 			//var checkedCount = checkSpace('NURDSpace');
@@ -37,7 +37,7 @@ Meteor.publish('spaces', function() {
 Meteor.methods({
 	checkSpaces: function() {
 		log('checkSpaces');
-		var response = HTTP.get('http://spaceapi.net/directory.json?api=>0.11', { timeout: 5000 });
+		var response = HTTP.get('https://spaceapi.fixme.ch/directory.json', { timeout: 5000 });
 		if (response.statusCode === 200) {
 			var spaceDict = JSON.parse(response.content);
 			var spaceIds = _.keys(spaceDict);
@@ -190,7 +190,7 @@ function quickPatches() {
 		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
 		log('Patched: '.white + 'Codersfield [lat-lon bug]'.yellow);
 	}
-	
+
 	// Kamloops MakerSpace
 	var space = Spaces.findOne({ name: "Kamloops MakerSpace" });
 	if (space && space.data && space.data.location) {
