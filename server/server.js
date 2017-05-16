@@ -12,7 +12,7 @@ Meteor.startup(function() {
 		Meteor.call('checkSpaces')
 			// -- check just one
 			//var checkedCount = checkSpace('NURDSpace');
-	}, 300000);
+	}, 60000*10);
 
 	// Info Ping Interval
 	Meteor.setInterval(function() {
