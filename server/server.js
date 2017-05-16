@@ -2,9 +2,9 @@ Meteor.startup(function() {
 	console.log('Server started: ', new Date())
 	// init Info
 	if (!Info.findOne()) Info.insert({ checkedCount: 0, ping: 0 });
-	if (!Spaces.findOne()) Meteor.call('checkSpaces');
-	// fetch spaces instantly
-	//Meteor.setTimeout(checkSpaces(),2000);
+	if (!Spaces.findOne()) {
+		Meteor.setTimeout(function(){Meteor.call('checkSpaces')},5000);
+	}
 
 	// Check Spaces Interval
 	Meteor.setInterval(function() {
@@ -54,9 +54,6 @@ Meteor.methods({
 			log('Updating Space Data');
 			Meteor.call('updateSpaces');
 			log('Update done.');
-
-			// patches
-			quickPatches();
 
 			infoPing(spaceList.length || 0)
 
@@ -143,42 +140,35 @@ function infoPing(checkedCount) {
 	});
 }
 
-function quickPatches() {
+function patchGeoBugs(dict) {
 	log('Patching:'.blue)
-		// Tangleball (New Zealand) - lat-lon wrong way
-	var space = Spaces.findOne({ name: "Tangleball" });
-	if (space && space.data && space.data.location) {
-		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-		log('Patched: '.white + 'Tangleball [lat-lon bug]'.yellow);
-	}
-
-	// BinarySpace
-	var space = Spaces.findOne({ name: "BinarySpace" });
-	if (space && space.data && space.data.location) {
-		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-		log('Patched: '.white + 'BinarySpace [lat-lon bug]'.yellow);
+	var latlonbugs = [
+		"Liege Hackerspace",
+		"Dingfabrik",
+		"flipdot",
+		"FabLab Neustadt a. d. Aisch - Bad Windsheim",
+		"Tarlab",
+		"BinarySpace",
+		"Tangleball"
+		// "Bhack", // ??
+		//"HackSpace CaTania", // wrong name
+		// "Hacklab", // ??
+		// "Codersfield", // ??
+		// "Kamloops MakerSpace" // ??
+	]
+	for (var i in latlonbugs){
+		if (dict.space === latlonbugs[i]) {
+			var lat = dict.location.lon
+			var lon = dict.location.lat
+			dict.location.lat = lat
+			dict.location.lon = lon
+		}
 	}
 
 	// Laboratório Hacker
 	// var space = Spaces.findOne({ name: "Laboratório Hacker" });
-	// Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-	// log('Patched: '.white + 'Laboratório Hacker [lat-lon bug]'.yellow);
-
-	// Codersfield
-	var space = Spaces.findOne({ name: "Codersfield" });
-	if (space && space.data && space.data.location) {
-		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-		log('Patched: '.white + 'Codersfield [lat-lon bug]'.yellow);
-	}
-
-	// Kamloops MakerSpace
-	var space = Spaces.findOne({ name: "Kamloops MakerSpace" });
-	if (space && space.data && space.data.location) {
-		Spaces.update({ _id: space._id }, { $set: { 'data.location.lat': space.data.location.lon, 'data.location.lon': space.data.location.lat } })
-		log('Patched: '.white + 'Kamloops MakerSpace [lat-lon bug]'.yellow);
-	}
+	return dict
 }
-
 
 function fixSpaceDict(dict) {
 	var output = {};
@@ -225,6 +215,7 @@ function fixSpaceDict(dict) {
 		}
 	}
 	output.logo = removeHttps(output.logo);
+	output = patchGeoBugs(output)
 	return output;
 }
 
