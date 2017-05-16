@@ -128,26 +128,6 @@ Meteor.methods({
 			log('failed '.red + space.name)
 			return false;
 		}
-	},
-	checkSpace: function(space) {
-		var response = HTTP.get('http://spaceapi.net/directory.json?space=' + space, { timeout: 5000 });
-		if (response.statusCode === 200) {
-			var spaceDict = JSON.parse(response.content);
-			var spaceIds = _.keys(spaceDict);
-			var spaceList = _.map(spaceIds, function(spaceId) {
-				return {
-					name: spaceId,
-					api: spaceDict[spaceId]
-				}
-			})
-			Meteor.call('updateSpaceList',spaceList);
-			Meteor.call('updateSpace',space);
-			infoPing(spaceList.length || 0)
-		}
-	},
-	updateSpace: function(spacename) {
-		var space = Spaces.findOne({ name: spacename });
-		Meteor.call('fetchSpaceData',space);
 	}
 })
 
