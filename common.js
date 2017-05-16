@@ -21,5 +21,5 @@ Router.route('/', function () {
 
 // Commons
 log = function(x){
-  console.log(x);
+  // console.log(x);
 }

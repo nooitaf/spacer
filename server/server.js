@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-
+	console.log('Server started: ', new Date())
 	// init Info
 	if (!Info.findOne()) Info.insert({ checkedCount: 0, ping: 0 });
 	if (!Spaces.findOne()) Meteor.call('checkSpaces');
