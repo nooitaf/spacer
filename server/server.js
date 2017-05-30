@@ -145,16 +145,16 @@ function patchGeoBugs(dict) {
 	var latlonbugs = [
 		"Liege Hackerspace",
 		"Dingfabrik",
-		"flipdot",
 		"FabLab Neustadt a. d. Aisch - Bad Windsheim",
 		"Tarlab",
 		"BinarySpace",
 		"Tangleball"
 		// "Bhack", // ??
-		//"HackSpace CaTania", // wrong name
+		// "HackSpace CaTania", // wrong name
 		// "Hacklab", // ??
 		// "Codersfield", // ??
 		// "Kamloops MakerSpace" // ??
+		// Laboratório Hacker //??
 	]
 	for (var i in latlonbugs){
 		if (dict.space === latlonbugs[i]) {
@@ -165,8 +165,6 @@ function patchGeoBugs(dict) {
 		}
 	}
 
-	// Laboratório Hacker
-	// var space = Spaces.findOne({ name: "Laboratório Hacker" });
 	return dict
 }
 
