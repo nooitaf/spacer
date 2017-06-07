@@ -9,8 +9,11 @@
 </template>
 
 <template name="home">
+  <h2>Spacer</h2>
+  <h2 style="font-size:10px;"><a href="https://spaceapi.net/">SpaceAPI</a> registered <a href="http://hackerspaces.org/">HackerSpaces</a> on a Map with "current" state</h2>
   {{> space_map}}
   {{> space_list}}
+  <h2 style="font-size:12px;">Fork me: <a href="https://github.com/nooitaf/spacer">https://github.com/nooitaf/spacer</a></h2>
 </template>
 
 
@@ -48,25 +51,29 @@
 <template name="space_list">
   <div class="container space-list">
     <div class="row-fluid">
-      <h3>Last Update of {{infoCheckedCount}} {{infoLastUpdate}}.</h3>
+      <h2>Last Update of {{infoCheckedCount}} {{infoLastUpdate}}.</h2>
+      <br>
     </div>
-    <div class="row-fluid">
-      {{#each spaces}}
-        <div class="col-sm-2 space-box">
-          <div class="row-fluid">
-            <a href="{{data.url}}" target="_blank">{{name}}</a>
+    {{#if showSpaceList}}
+      <div class="row-fluid">
+        {{#each spaces}}
+          <div class="col-sm-2 space-box">
+            <div class="row-fluid">
+              <a href="{{data.url}}" target="_blank">{{name}}</a>
+            </div>
+            <div class="row-fluid space-img-row">
+              {{#if data.logo}}
+                <div class="space-img" style="background-image:url({{data.logo}})">&nbsp;</div>
+              {{/if}}
+            </div>
+            <div class="row-fluid" style="display:none;">
+              <pre>{{tree}}</pre>
+            </div>
           </div>
-          <div class="row-fluid space-img-row">
-            {{#if data.logo}}
-              <div class="space-img" style="background-image:url({{data.logo}})">&nbsp;</div>
-            {{/if}}
-          </div>
-          <div class="row-fluid" style="display:none;">
-            <pre>{{tree}}</pre>
-          </div>
-        </div>
-      {{/each}}
-    </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <center><button type="button" class="space-list-toggle">Show `space logos` list</button></center>
+    {{/if}}
   </div>
 </template>
-

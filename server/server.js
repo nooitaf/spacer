@@ -114,7 +114,7 @@ Meteor.methods({
 					log('success: '.green + space.name)
 				} else {
 					log('no data: '.yellow + space.name)
-					log(response)
+					log('response:', response)
 				}
 			} else {
 				log('checkSpace ' + space.name + ' failed');
@@ -144,7 +144,7 @@ function patchGeoBugs(dict) {
 	log('Patching:'.blue)
 	var latlonbugs = [
 		"Liege Hackerspace",
-		"Dingfabrik",
+		// "Dingfabrik",
 		"FabLab Neustadt a. d. Aisch - Bad Windsheim",
 		"Tarlab",
 		"BinarySpace",

@@ -1,17 +1,39 @@
 html,body {
-  background:#bbb;
+  background:#222;
   padding-bottom:80px;
 }
 
 h2 {
   text-align: center;
   font-style: italic;
-  font-family: Times;
+  font-family: monospace;
   font-weight: bold;
-  font-size: 36px;
-  color:#eee;
+  font-size: 16px;
+  color:#777;
+  line-height: 5px;
+  /*letter-spacing: 2px;*/
 }
 
+button {
+  padding: 12px;
+  background:#222;
+  border-radius: 0px;;
+  border: 1px solid black;
+  color: #999;
+  font: monospace;
+  text-shadow: none;
+  /*letter-spacing: 1px;*/
+}
+
+a,
+a:link,
+a:visited {
+  color: #555;
+}
+a:hover{
+  text-decoration: none;
+  color: white;
+}
 
 .nav-side {
   height:100%;
@@ -19,17 +41,14 @@ h2 {
   background:red;
 }
 
-
-
-
 .space-list {
   padding-top:10px;
 }
 
 .space-box {
-  border:3px solid #ddd;
+  border:3px solid #555;
   padding:10px;
-  background:white;
+  background:#eee;
   height:200px;
 }
 .space-img-row {
@@ -42,8 +61,24 @@ h2 {
   height:140px;
 }
 .map {
-  border:3px solid #ddd;
-  margin-top:20px;
+  border:1px solid #000;
+  margin-top:10px;
   height:500px;
-  background:white;
+  background:#242424;
+  width: 100%;
+}
+.leaflet-control-attribution.leaflet-control {
+  background: #242424;
+  color:white;
+}
+.leaflet-control-attribution.leaflet-control > a,
+.leaflet-control-attribution.leaflet-control > a:link,
+.leaflet-control-attribution.leaflet-control > a:hover,
+.leaflet-control-attribution.leaflet-control > a:visited {
+  color:gray;
+}
+.leaflet-bar a {
+  background:#333;
+  color:#777;
+  border-bottom: none;
 }
