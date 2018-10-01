@@ -36,7 +36,7 @@ Meteor.publish('spaces', function() {
 
 Meteor.methods({
 	checkSpaces: function() {
-		log('checkSpaces');
+		console.log('checkSpaces');
 		var response = HTTP.get('https://spaceapi.fixme.ch/directory.json', { timeout: 5000 });
 		if (response.statusCode === 200) {
 			var spaceDict = JSON.parse(response.content);
@@ -47,18 +47,18 @@ Meteor.methods({
 					api: spaceDict[spaceId]
 				}
 			})
-			log('Fetched ' + spaceList.length + ' spaces.');
-			//log(spaceList);
-			log('Updating Space List');
+			console.log('Fetched ' + spaceList.length + ' spaces.');
+			//console.log(spaceList);
+			console.log('Updating Space List');
 			Meteor.call('updateSpaceList',spaceList);
-			log('Updating Space Data');
+			console.log('Updating Space Data');
 			Meteor.call('updateSpaces');
-			log('Update done.');
+			console.log('Update done.');
 
 			infoPing(spaceList.length || 0)
 
 		} else {
-			log('checkSpaces failed');
+			console.log('checkSpaces failed');
 		}
 
 	},
@@ -67,11 +67,11 @@ Meteor.methods({
 			var s = Spaces.findOne({ name: space.name });
 			if (!s) {
 				Spaces.insert(space);
-				log('Added: ' + space.name);
+				console.log('Added: ' + space.name);
 			} else {
 				if (s.api != space.api) {
 					Spaces.update({ _id: s }, { $set: { api: space.api } })
-					log('Updated: ' + space.name);
+					console.log('Updated: ' + space.name);
 				}
 			}
 		})
@@ -82,7 +82,7 @@ Meteor.methods({
 		})
 	},
 	fetchSpaceData: function(space) {
-		log('fetching: ' + space.name + ' @ ' + space.api)
+		console.log('fetching: ' + space.name + ' @ ' + space.api)
 		try {
 			process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 			var response = HTTP.get(space.api, { timeout: 5000, followRedirects: true });
@@ -95,8 +95,8 @@ Meteor.methods({
 				// some ignore data (shrug)
 				if (!response.data && response.content) {
 					spaceDict = JSON.parse(response.content);
-					log('took content value'.blue)
-						//log(spaceDict)
+					console.log('took content value'.blue)
+						//console.log(spaceDict)
 				}
 
 				if (spaceDict) {
@@ -111,18 +111,18 @@ Meteor.methods({
 						//console.log(spaceDict)
 						Spaces.update({ _id: space._id }, { $set: { data: spaceDict, lastUpdate: new Date().valueOf() } });
 					}
-					log('success: '.green + space.name)
+					console.log('success: '.green + space.name)
 				} else {
-					log('no data: '.yellow + space.name)
-					log('response:', response)
+					console.log('no data: '.yellow + space.name)
+					console.log('response:', response)
 				}
 			} else {
-				log('checkSpace ' + space.name + ' failed');
+				console.log('checkSpace ' + space.name + ' failed');
 			}
 			process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
 			return true;
 		} catch (e) {
-			log('failed '.red + space.name)
+			console.log('failed '.red + space.name)
 			return false;
 		}
 	}
@@ -141,7 +141,7 @@ function infoPing(checkedCount) {
 }
 
 function patchGeoBugs(dict) {
-	log('Patching:'.blue)
+	console.log('Patching:'.blue)
 	var latlonbugs = [
 		"Liege Hackerspace",
 		// "Dingfabrik",
