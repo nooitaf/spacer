@@ -84,7 +84,7 @@ function addMarker(map,space) {
     "</br>" +
     "<b><a href='" + space.data.url + "' taget='_blank'>" + space.name + "</a></b></br>" +
     "<i>" + address + "</i></br>" +
-    (space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>")
+    (space.data && space.data.state && space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>")
   );
 
   updateIcon(marker,space);
@@ -94,7 +94,7 @@ function addMarker(map,space) {
 }
 
 function updateIcon(marker,space){
-  if (space.data.state.open){
+  if (space.data && space.data.state && space.data.state.open){
     marker.setIcon(
       L.icon({
         iconUrl: '/img/marker-icon-square-open.png',
