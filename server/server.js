@@ -212,7 +212,7 @@ function fixSpaceDict(dict) {
 			feeds: dict.feeds || null
 		}
 	}
-	output.logo = removeHttps(output.logo);
+	// output.logo = removeHttps(output.logo);
 	output = patchGeoBugs(output)
 	return output;
 }
