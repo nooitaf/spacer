@@ -1,0 +1,111 @@
+#docker-compose.yml (Base)
+version: '3.4'
+
+services:
+  traefik:
+    image: traefik:v2.2
+    container_name: traefik
+    restart: unless-stopped
+    command:
+    #### These are the CLI commands that will configure Traefik and tell it how to work! ####
+      ## API Settings - https://docs.traefik.io/operations/api/, endpoints - https://docs.traefik.io/operations/api/#endpoints ##
+      # - --api=true
+      - --api.insecure=false # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
+      - --api.dashboard=false # <== Enabling the dashboard to view services, middlewares, routers, etc...
+      # - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
+      ## Log Settings (options: ERROR, DEBUG, PANIC, FATAL, WARN, INFO) - https://docs.traefik.io/observability/logs/ ##
+      - --log.level=ERROR # <== Setting the level of the logs from traefik
+      ## Provider Settings - https://docs.traefik.io/providers/docker/#provider-configuration ##
+      - --providers.docker=true # <== Enabling docker as the provider for traefik
+      - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik, only expose enabled ones
+      # - --providers.docker.defaultrule="Host(`{{ trimPrefix `/` .Name }}.dev.local`)"
+      - --providers.file.filename=/traefik.tls.yml # <== Referring to a dynamic configuration file
+      - --providers.docker.network=web # <== Operate on the docker network named web
+      ## Entrypoints Settings - https://docs.traefik.io/routing/entrypoints/#configuration ##
+      - --entrypoints.web.address=:80 # <== Defining an entrypoint for port :80 named web
+      - --entrypoints.web-secured.address=:443 # <== Defining an entrypoint for https on port :443 named web-secured
+      ## Certificate Settings (Let's Encrypt) -  https://docs.traefik.io/https/acme/#configuration-examples ##
+      - "--certificatesresolvers.resolver-app.acme.tlschallenge=true"
+      - "--certificatesresolvers.resolver-app.acme.email=nooitaf@gmail.com"
+      - "--certificatesresolvers.resolver-app.acme.storage=/letsencrypt/app.json"
+
+    volumes:
+      - ./config/traefik.tls.yml:/traefik.tls.yml
+      - /opt/letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '80:80'
+      - '443:443'
+      # - '8080:8080'
+    networks:
+      - web
+    labels:
+      traefik.enable: true
+
+
+
+  app:
+    image: spacer-app:${TAG:-latest}
+    container_name: spacer-app
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./app.dockerfile
+    environment:
+      ROOT_URL: https://spacer.nooitaf.nl
+      PORT: 3000
+      MONGO_URL: mongodb://admin:secret@db.mongo:27017/spacer
+    depends_on:
+      - traefik
+      - db.mongo
+    networks:
+      - web
+      - backend
+    labels:
+      traefik.enable: true
+      
+      # web
+      traefik.http.routers.app-client-web.rule: Host(`spacer.nooitaf.nl`)
+      traefik.http.routers.app-client-web.entrypoints: web
+      traefik.http.routers.app-client-web.middlewares: app-client-web-redirect
+
+      # web-secured
+      traefik.http.routers.app-client-secured1.rule: Host(`spacer.nooitaf.nl`)
+      traefik.http.routers.app-client-secured1.entrypoints: web-secured
+      traefik.http.routers.app-client-secured1.tls.certresolver: resolver-app
+      traefik.http.routers.app-client-secured1.middlewares: app-client-web-redirect
+
+      # domain rewrites
+      traefik.http.middlewares.app-client-web-redirect.chain.middlewares: app-d1
+      
+      # dev.stachys.frontend.nooitaf.nl
+      traefik.http.middlewares.app-d1.redirectregex.regex: ^https?://spacer.nooitaf.nl
+      traefik.http.middlewares.app-d1.redirectregex.replacement: https://spacer.nooitaf.nl
+
+
+
+
+  db.mongo:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - ./config/mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - /opt/mongo-volume:/data/db
+    # ports:
+      # - "27017-27019:27017-27019"
+    networks:
+      - backend
+
+
+
+networks:
+  web:
+    external: true
+  backend:
+    external: false
+        
