@@ -143,12 +143,12 @@ function infoPing(checkedCount) {
 function patchGeoBugs(dict) {
 	console.log('Patching:'.blue)
 	var latlonbugs = [
-		"Liege Hackerspace",
+		// "Liege Hackerspace",
 		// "Dingfabrik",
-		"FabLab Neustadt a. d. Aisch - Bad Windsheim",
-		"Tarlab",
-		"BinarySpace",
-		"Tangleball"
+		// "FabLab Neustadt a. d. Aisch - Bad Windsheim",
+		// "Tarlab",
+		// "BinarySpace",
+		// "Tangleball"
 		// "Bhack", // ??
 		// "HackSpace CaTania", // wrong name
 		// "Hacklab", // ??
