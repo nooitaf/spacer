@@ -133,7 +133,6 @@ function updateMarker(marker,space) {
     "</br>" +
     "<b><a href='" + space.data.url + "' taget='_blank'>" + space.name + "</a></b></br>" +
     "<i>" + address + "</i></br>" +
-    parseInt(Math.random()*1000) + "</br>" +
     (space.data.state.open ? "<b style='color:green;'>Open</b>" : "<b style='color:red;'>Closed</b>");
 
   updateIcon(marker,space);
