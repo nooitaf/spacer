@@ -96,17 +96,17 @@ Meteor.methods({
 				if (!response.data && response.content) {
 					spaceDict = JSON.parse(response.content);
 					console.log('took content value'.blue)
-						//console.log(spaceDict)
 				}
 
 				if (spaceDict) {
+          // console.log(spaceDict)
 					if (spaceDict.api === '0.13') {
-						console.log('API 0.13'.pink);
+						console.log('API 0.13'.magenta);
 						spaceDict = fixSpaceDict(spaceDict);
 						Spaces.update({ _id: space._id }, { $set: { data: spaceDict, lastUpdate: new Date().valueOf() } });
 					}
 					if (spaceDict.api === '0.12') {
-						console.log('API 0.12'.pink);
+						console.log('API 0.12'.magenta);
 						spaceDict = fixSpaceDict(spaceDict);
 						//console.log(spaceDict)
 						Spaces.update({ _id: space._id }, { $set: { data: spaceDict, lastUpdate: new Date().valueOf() } });
@@ -169,6 +169,12 @@ function patchGeoBugs(dict) {
 }
 
 function fixSpaceDict(dict) {
+  // extra fix for "chaos.social" key
+  if (dict.contact && dict.contact["chaos.social"]) {
+    dict.contact["chaos\.social"] = dict.contact["chaos.social"]
+    delete dict.contact["chaos.social"]
+  }
+  
 	var output = {};
 	if (dict.api === '0.13') {
 		output = {
@@ -181,9 +187,15 @@ function fixSpaceDict(dict) {
 				lon: dict.location.lon || null,
 				address: dict.location.address || null
 			},
+      state: {
+        open: dict.state && dict.state.open || null,
+        icon: {
+          open: dict.state && dict.state.icon && dict.state.icon.open || null,
+          closed: dict.state && dict.state.icon && dict.state.icon.closed || null,
+        },
+      },
 			cam: dict.cam || null,
 			stream: dict.stream || null,
-			state: dict.state || null,
 			contact: dict.contact || null,
 			sensors: dict.sensors || null,
 			feeds: dict.feeds || null
@@ -200,13 +212,13 @@ function fixSpaceDict(dict) {
 				lon: dict.lon || null,
 				address: dict.address || null
 			},
-			cam: dict.cam || null,
-			stream: dict.stream || null,
-			state: {
+      state: {
 				open: dict.open || null,
 				lastchange: dict.lastchange || null,
 				icon: dict.icon || null
 			},
+			cam: dict.cam || null,
+			stream: dict.stream || null,
 			contact: dict.contact || null,
 			sensors: dict.sensors || null,
 			feeds: dict.feeds || null
