@@ -100,7 +100,7 @@ Meteor.methods({
 
 				if (spaceDict) {
           // console.log(spaceDict)
-					if (spaceDict.api === '0.13') {
+					if (spaceDict.api === '0.13' || ( spaceDict.api_compatibility && spaceDict.api_compatibility[0] === '14' )) {
 						console.log('API 0.13'.magenta);
 						spaceDict = fixSpaceDict(spaceDict);
 						Spaces.update({ _id: space._id }, { $set: { data: spaceDict, lastUpdate: new Date().valueOf() } });
@@ -176,7 +176,7 @@ function fixSpaceDict(dict) {
   }
   
 	var output = {};
-	if (dict.api === '0.13') {
+	if (dict.api === '0.13' || ( dict.api_compatibility && dict.api_compatibility[0] === '14' ) ) {
 		output = {
 			api: dict.api,
 			space: dict.space || null,
