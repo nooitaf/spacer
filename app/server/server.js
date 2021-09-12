@@ -37,7 +37,7 @@ Meteor.publish('spaces', function() {
 Meteor.methods({
 	checkSpaces: function() {
 		console.log('checkSpaces');
-		var response = HTTP.get('https://spaceapi.fixme.ch/directory.json', { timeout: 5000 });
+		var response = HTTP.get('https://raw.githubusercontent.com/SpaceApi/directory/master/directory.json', { timeout: 5000 });
 		if (response.statusCode === 200) {
 			var spaceDict = JSON.parse(response.content);
 			var spaceIds = _.keys(spaceDict);
